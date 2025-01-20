@@ -27,13 +27,13 @@ runs:
     - name: Install Dashcam GUI
       shell: pwsh
       run: |
-        .\src\windows\dashcam-install\Install-DashcamGUI.ps1 `
+        .\src\windows\Install-DashcamGUI.ps1 `
           -DashcamVersion ${{ inputs.dashcam-version }}
 
     - name: Install Node.js for Dashcam CLI
       shell: pwsh
       run: |
-        .\src\windows\dashcam-install\Install-NodeJS.ps1 `
+        .\src\windows\Install-NodeJS.ps1 `
           -Version ${{ inputs.node-version }} `
           -Directory ${{ inputs.node-directory }} `
           -Prefix ${{ inputs.node-prefix }}
@@ -42,7 +42,7 @@ runs:
       shell: pwsh
       run: |
         $env:PATH = "${{ inputs.node-directory }};${{ inputs.node-prefix }};$env:PATH"
-        .\src\windows\dashcam-install\Install-DashcamCLI.ps1
+        .\src\windows\Install-DashcamCLI.ps1
         Add-Content -Path $env:GITHUB_ENV -Encoding utf8 -Value "DASHCAM_NODE_DIR=${{ inputs.node-directory }}"
 
 branding:
