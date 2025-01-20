@@ -27,6 +27,13 @@ runs:
     - name: Install Dashcam GUI
       shell: pwsh
       run: |
+
+        Write-Host "Current directory contents:"
+        Get-ChildItem -Force
+
+        Write-Host "src directory contents:"
+        Get-ChildItem -Force -Path src
+
         .\src\windows\Install-DashcamGUI.ps1 `
           -DashcamVersion ${{ inputs.dashcam-version }}
 
