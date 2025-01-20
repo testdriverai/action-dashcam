@@ -1,0 +1,27 @@
+name: "Start Dashcam Recording"
+description: "Starts the Dashcam CLI recording"
+author: "TheBrowserCompany"
+
+inputs:
+  dashcam-api-key:
+    description: "The Dashcam API key to use for the recording."
+    required: true
+  log-file-paths:
+    description: "The paths to the log files to include in the recording, as a multiline string."
+    required: false
+  dashcam-connection-timeout:
+    description: "The timeout in seconds for the Dashcam GUI to be available from the CLI."
+    required: true
+    default: "20"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Start Recording
+      shell: pwsh
+      run: |
+        .\src\windows\dashcam-windows-start.ps1 -DashcamApiKey "${{ inputs.dashcam-api-key }}" -LogFilePaths "${{ inputs.log-file-paths }}" -Timeout "${{ inputs.dashcam-connection-timeout }}"
+
+branding:
+  icon: "video"
+  color: "green"
