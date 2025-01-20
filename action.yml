@@ -24,33 +24,91 @@ runs:
   using: "composite"
   steps:
     # The Dashcam CLI talks to the running Dashcam GUI, so we need both
-    - name: Install Dashcam GUI
+    - name: Install Dashcam GUI (Windows)
+      if: ${{ runner.os == 'Windows' }}
       shell: pwsh
       run: |
+        Write-Output "Installing Dashcam GUI on ${{ runner.os }}"
 
-        Write-Host "Current directory contents:"
-        Get-ChildItem -Force
-
-        Write-Host "src directory contents:"
-        Get-ChildItem -Force -Path src
-
-        .\src\windows\Install-DashcamGUI.ps1 `
+        src\windows\Install-DashcamGUI.ps1 `
           -DashcamVersion ${{ inputs.dashcam-version }}
 
-    - name: Install Node.js for Dashcam CLI
+    - name: Install Node.js for Dashcam CLI (Windows)
+      if: ${{ runner.os == 'Windows' }}
       shell: pwsh
       run: |
-        .\src\windows\Install-NodeJS.ps1 `
+        Write-Output "Installing Node.js for Dashcam CLI on ${{ runner.os }}"
+
+        src\windows\Install-NodeJS.ps1 `
           -Version ${{ inputs.node-version }} `
           -Directory ${{ inputs.node-directory }} `
           -Prefix ${{ inputs.node-prefix }}
 
-    - name: Install Dashcam CLI
+    - name: Install Dashcam CLI (Windows)
+      if: ${{ runner.os == 'Windows' }}
       shell: pwsh
       run: |
+        Write-Output "Installing Dashcam CLI on ${{ runner.os }}"
+
         $env:PATH = "${{ inputs.node-directory }};${{ inputs.node-prefix }};$env:PATH"
-        .\src\windows\Install-DashcamCLI.ps1
+        src\windows\Install-DashcamCLI.ps1
         Add-Content -Path $env:GITHUB_ENV -Encoding utf8 -Value "DASHCAM_NODE_DIR=${{ inputs.node-directory }}"
+
+    - name: Install Dashcam GUI (macOS)
+      if: ${{ runner.os == 'macOS' }}
+      shell: bash
+      run: |
+        echo "Installing Dashcam GUI on ${{ runner.os }}"
+        echo "Not supported yet"
+        exit 1
+
+    - name: Install Node.js for Dashcam CLI (macOS)
+      if: ${{ runner.os == 'macOS' }}
+      shell: bash
+      run: |
+        echo "Installing Node.js for Dashcam CLI on ${{ runner.os }}"
+        echo "Not supported yet"
+        exit 1
+
+    - name: Install Dashcam CLI (macOS)
+      if: ${{ runner.os == 'macOS' }}
+      shell: bash
+      run: |
+        echo "Installing Dashcam CLI on ${{ runner.os }}"
+        echo "Not supported yet"
+        exit 1
+
+    - name: Install Dashcam GUI (Linux)
+      if: ${{ runner.os == 'Linux' }}
+      shell: bash
+      run: |
+        echo "Installing Dashcam GUI on ${{ runner.os }}"
+        echo "Not supported yet"
+        exit 1
+
+    - name: Install Node.js for Dashcam CLI (Linux)
+      if: ${{ runner.os == 'Linux' }}
+      shell: bash
+      run: |
+        echo "Installing Node.js for Dashcam CLI on ${{ runner.os }}"
+        echo "Not supported yet"
+        exit 1
+
+    - name: Install Dashcam CLI (Linux)
+      if: ${{ runner.os == 'Linux' }}
+      shell: bash
+      run: |
+        echo "Installing Dashcam CLI on ${{ runner.os }}"
+        echo "Not supported yet"
+        exit 1
+
+    - name: Install Dashcam CLI (Linux)
+      if: ${{ runner.os == 'Linux' }}
+      shell: bash
+      run: |
+        echo "Installing Dashcam CLI on ${{ runner.os }}"
+        echo "Not supported yet"
+        exit 1
 
 branding:
   icon: "download"
