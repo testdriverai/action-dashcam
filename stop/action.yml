@@ -1,0 +1,18 @@
+name: "Stop the Dashcam CLI recording"
+description: "Stops the Dashcam CLI recording"
+
+inputs:
+  project-id:
+    description: "The project to which Dashcam will upload the recording. This value is the 'slug' component of the project URL on the Dashcam website."
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Stop Recording
+      shell: pwsh
+      run: |
+        # Environment variable set by the dashcam-install action
+        $env:PATH = "$env:DASHCAM_NODE_DIR;$env:DASHCAM_NODE_DIR\npm-installs;$env:PATH"
+        dashcam create --project ${{ inputs.project-id }} -t "${{ github.workflow }} ${{ github.run_number }}-${{ github.run_attempt }} - ${{ runner.name }}" -p --md >> $env:GITHUB_STEP_SUMMARY
+
