@@ -5,11 +5,11 @@ author: "TheBrowserCompany"
 inputs:
   dashcam-version:
     description: "The version of Dashcam to install."
-    default: "1.0.49"
+    default: "1.0.49" # See releases here: https://github.com/replayableio/replayable/releases
     required: true
   node-version:
     description: "The version of Node.js to install."
-    default: "16.20.2"
+    default: "16.20.2" # Must match the required version for cli see: https://github.com/replayableio/cli/blob/main/package.json
     required: true
   node-directory:
     description: "The directory to install Node.js to."
