@@ -12,7 +12,6 @@ inputs:
   connection-timeout:
     description: "The timeout in seconds for the Dashcam GUI to be available from the CLI."
     required: true
-    default: "20"
 
 runs:
   using: "composite"

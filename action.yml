@@ -4,20 +4,16 @@ author: "TheBrowserCompany"
 
 inputs:
   version:
-    description: "The version of Dashcam to install."
-    default: "1.0.49" # See releases here: https://github.com/replayableio/replayable/releases
+    description: "The version of Dashcam to install. See releases here: https://github.com/replayableio/replayable/releases"
     required: true
   node-version:
-    description: "The version of Node.js to install."
-    default: "16.20.2" # Must match the required version for cli see: https://github.com/replayableio/cli/blob/main/package.json
+    description: "The version of Node.js to install. Must match the required version for cli see: https://github.com/replayableio/cli/blob/main/package.json"
     required: true
   node-directory:
     description: "The directory to install Node.js to."
-    default: "C:\\nodejs16"
     required: true
   node-prefix:
     description: "The prefix to use for Node.js."
-    default: "C:\\nodejs16\\npm-installs"
     required: true
 
 runs:
@@ -29,16 +25,14 @@ runs:
       shell: pwsh
       run: |
         $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;$env:PATH"
-        Write-Output "PATH: $env:PATH"
-        Write-Output "Installing Dashcam GUI on ${{ runner.os }}"
-        Write-Output "Install-DashcamGUI.ps1 -Version ${{ inputs.version }}"
+        Write-Host "Installing Dashcam GUI on ${{ runner.os }}"
         Install-DashcamGUI.ps1 -Version ${{ inputs.version }}
 
     - name: Install Node.js for Dashcam CLI (Windows)
       if: ${{ runner.os == 'Windows' }}
       shell: pwsh
       run: |
-        Write-Output "Installing Node.js for Dashcam CLI on ${{ runner.os }}"
+        Write-Host "Installing Node.js for Dashcam CLI on ${{ runner.os }}"
 
         $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;$env:PATH"
         Install-NodeJS.ps1 -Version ${{ inputs.node-version }} -Directory ${{ inputs.node-directory }} -Prefix ${{ inputs.node-prefix }}
@@ -47,7 +41,7 @@ runs:
       if: ${{ runner.os == 'Windows' }}
       shell: pwsh
       run: |
-        Write-Output "Installing Dashcam CLI on ${{ runner.os }}"
+        Write-Host "Installing Dashcam CLI on ${{ runner.os }}"
 
         $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;${{ inputs.node-directory }};${{ inputs.node-prefix }};$env:PATH"
         Install-DashcamCLI.ps1
@@ -90,14 +84,6 @@ runs:
       shell: bash
       run: |
         echo "Installing Node.js for Dashcam CLI on ${{ runner.os }}"
-        echo "Not supported yet"
-        exit 1
-
-    - name: Install Dashcam CLI (Linux)
-      if: ${{ runner.os == 'Linux' }}
-      shell: bash
-      run: |
-        echo "Installing Dashcam CLI on ${{ runner.os }}"
         echo "Not supported yet"
         exit 1
 
