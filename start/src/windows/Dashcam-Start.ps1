@@ -1,7 +1,7 @@
 param (
   # required parameter for dashcam api key
   [Parameter(Mandatory = $true)]
-  [string]$DashcamApiKey,
+  [string]$ApiKey,
 
   # paths to log files to track, newline separated
   [string]$LogFilePaths,
@@ -39,7 +39,7 @@ $env:PATH = "$env:DASHCAM_NODE_DIR;$env:DASHCAM_NODE_DIR\npm-installs;$env:PATH"
 
 # The output of Dashcam after a successful auth is:
 # Connected as: google-oauth2|<token>!
-$authenticationOutput = dashcam auth "$DashcamApiKey"
+$authenticationOutput = dashcam auth "$ApiKey"
 Write-Host $authenticationOutput
 # The output of Dashcam after a successful auth is:
 # Connected as: google-oauth2|<token>!

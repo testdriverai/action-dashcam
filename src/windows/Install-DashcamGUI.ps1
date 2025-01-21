@@ -1,6 +1,6 @@
 param (
   [Parameter(Mandatory = $true)]
-  [string]$DashcamVersion
+  [string]$Version
 )
 
 $global:ErrorActionPreference = "Stop"
@@ -16,12 +16,12 @@ function Invoke-Group([string]$Title, [ScriptBlock]$Block) {
 $InstallDir = "$Env:TEMP\Dashcam"
 New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
 
-$ExeFilename = "Dashcam-$DashcamVersion.exe"
+$ExeFilename = "Dashcam-$Version.exe"
 $ExePath = "$InstallDir\$ExeFilename"
 
 Invoke-Group "Downloading Dashcam." {
     # Use the portable version rather than the installer, which was randomly failing
-    $ExeUrl = "https://github.com/replayableio/replayable/releases/download/v$DashcamVersion-portable/$ExeFilename"
+    $ExeUrl = "https://github.com/replayableio/replayable/releases/download/v$Version-portable/$ExeFilename"
     Invoke-WebRequest -Uri $ExeUrl -OutFile $ExePath
 }
 

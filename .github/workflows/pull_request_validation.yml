@@ -16,8 +16,8 @@ jobs:
       - name: Log Environment
         shell: pwsh
         run: |
-          Write-Output "Current path: $(Get-Location)"
-          Write-Output "Current path: $(Get-Location -PSProvider FileSystem)"
+          Write-Host "Current path: $(Get-Location)"
+          Write-Host "Current path: $(Get-Location -PSProvider FileSystem)"
           Get-ChildItem -Recurse -Force
 
       - name: Install Dashcam
@@ -26,11 +26,9 @@ jobs:
       - name: Start Dashcam
         uses: thebrowsercompany/action-dashcam/start@main
         with:
-          dashcam-api-key: "1234567890"
+          api-key: "1234567890"
     
       - name: Stop Dashcam
         uses: thebrowsercompany/action-dashcam/stop@main
         with:
           project-id: "507f1f77bcf86cd799439011"
-
-
