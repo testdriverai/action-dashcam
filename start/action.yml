@@ -20,7 +20,16 @@ runs:
     - name: Start Recording
       shell: pwsh
       run: |
-        .\src\windows\dashcam-windows-start.ps1 -DashcamApiKey "${{ inputs.dashcam-api-key }}" -LogFilePaths "${{ inputs.log-file-paths }}" -Timeout "${{ inputs.dashcam-connection-timeout }}"
+        $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;$env:PATH"
+        Write-Output "Starting recording with Dashcam API key: ${{ inputs.dashcam-api-key }}"
+        Write-Output "Log file paths: ${{ inputs.log-file-paths }}"
+        Write-Output "Dashcam connection timeout: ${{ inputs.dashcam-connection-timeout }}"
+        Write-Output "PATH: $env:PATH"
+        Write-Output "GITHUB_ACTION_PATH: $env:GITHUB_ACTION_PATH"
+        Write-Output "PWD: $env:PWD"
+        Get-ChildItem -Path $env:GITHUB_ACTION_PATH\src\windows
+        Get-Command Dashcam-Start.ps1
+        Dashcam-Start.ps1 -DashcamApiKey "${{ inputs.dashcam-api-key }}" -LogFilePaths "${{ inputs.log-file-paths }}" -Timeout "${{ inputs.dashcam-connection-timeout }}"
 
 branding:
   icon: "video"

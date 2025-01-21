@@ -1,0 +1,36 @@
+name: Pull Request - Validation
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches-ignore:
+      - '**/graphite-base/**'
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - name: Log Environment
+        shell: pwsh
+        run: |
+          Write-Output "Current path: $(Get-Location)"
+          Write-Output "Current path: $(Get-Location -PSProvider FileSystem)"
+          Get-ChildItem -Recurse -Force
+
+      - name: Install Dashcam
+        uses: thebrowsercompany/action-dashcam@main
+    
+      - name: Start Dashcam
+        uses: thebrowsercompany/action-dashcam/start@main
+        with:
+          dashcam-api-key: "1234567890"
+    
+      - name: Stop Dashcam
+        uses: thebrowsercompany/action-dashcam/stop@main
+        with:
+          project-id: "507f1f77bcf86cd799439011"
+
+

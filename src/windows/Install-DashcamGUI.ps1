@@ -1,11 +1,11 @@
+param (
+  [Parameter(Mandatory = $true)]
+  [string]$DashcamVersion
+)
+
 $global:ErrorActionPreference = "Stop"
 $global:ProgressPreference = "SilentlyContinue" # Accelerates Invoke-WebRequest
 Set-StrictMode -Version Latest
-
-param(
-    [Parameter(Mandatory=$true)]
-    [string]$DashcamVersion
-)
 
 function Invoke-Group([string]$Title, [ScriptBlock]$Block) {
     Write-Host "::group::$Title"

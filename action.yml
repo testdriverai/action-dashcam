@@ -13,11 +13,11 @@ inputs:
     required: true
   node-directory:
     description: "The directory to install Node.js to."
-    default: "C:\nodejs16"
+    default: "C:\\nodejs16"
     required: true
   node-prefix:
     description: "The prefix to use for Node.js."
-    default: "C:\nodejs16\npm-installs"
+    default: "C:\\nodejs16\\npm-installs"
     required: true
 
 runs:
@@ -28,10 +28,11 @@ runs:
       if: ${{ runner.os == 'Windows' }}
       shell: pwsh
       run: |
+        $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;$env:PATH"
+        Write-Output "PATH: $env:PATH"
         Write-Output "Installing Dashcam GUI on ${{ runner.os }}"
-
-        src\windows\Install-DashcamGUI.ps1 `
-          -DashcamVersion ${{ inputs.dashcam-version }}
+        Write-Output "Install-DashcamGUI.ps1 -DashcamVersion ${{ inputs.dashcam-version }}"
+        Install-DashcamGUI.ps1 -DashcamVersion ${{ inputs.dashcam-version }}
 
     - name: Install Node.js for Dashcam CLI (Windows)
       if: ${{ runner.os == 'Windows' }}
@@ -39,10 +40,8 @@ runs:
       run: |
         Write-Output "Installing Node.js for Dashcam CLI on ${{ runner.os }}"
 
-        src\windows\Install-NodeJS.ps1 `
-          -Version ${{ inputs.node-version }} `
-          -Directory ${{ inputs.node-directory }} `
-          -Prefix ${{ inputs.node-prefix }}
+        $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;$env:PATH"
+        Install-NodeJS.ps1 -Version ${{ inputs.node-version }} -Directory ${{ inputs.node-directory }} -Prefix ${{ inputs.node-prefix }}
 
     - name: Install Dashcam CLI (Windows)
       if: ${{ runner.os == 'Windows' }}
@@ -50,8 +49,8 @@ runs:
       run: |
         Write-Output "Installing Dashcam CLI on ${{ runner.os }}"
 
-        $env:PATH = "${{ inputs.node-directory }};${{ inputs.node-prefix }};$env:PATH"
-        src\windows\Install-DashcamCLI.ps1
+        $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;${{ inputs.node-directory }};${{ inputs.node-prefix }};$env:PATH"
+        Install-DashcamCLI.ps1
         Add-Content -Path $env:GITHUB_ENV -Encoding utf8 -Value "DASHCAM_NODE_DIR=${{ inputs.node-directory }}"
 
     - name: Install Dashcam GUI (macOS)
