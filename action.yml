@@ -6,6 +6,10 @@ inputs:
   version:
     description: "The version of Dashcam to install. See releases here: https://github.com/replayableio/replayable/releases"
     required: true
+  cli-version:
+    description: "The version of Dashcam cli to install. see: https://www.npmjs.com/package/dashcam?activeTab=versions"
+    required: false
+    default: "latest"
   node-version:
     description: "The version of Node.js to install. Must match the required version for cli see: https://github.com/replayableio/cli/blob/main/package.json"
     required: true
@@ -44,7 +48,7 @@ runs:
         Write-Host "Installing Dashcam CLI on ${{ runner.os }}"
 
         $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;${{ inputs.node-directory }};${{ inputs.node-prefix }};$env:PATH"
-        Install-DashcamCLI.ps1
+        Install-DashcamCLI.ps1 -Version ${{ inputs.cli-version }}
         Add-Content -Path $env:GITHUB_ENV -Encoding utf8 -Value "DASHCAM_NODE_DIR=${{ inputs.node-directory }}"
 
     - name: Install Dashcam GUI (macOS)
