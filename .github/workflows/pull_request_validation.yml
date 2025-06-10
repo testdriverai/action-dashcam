@@ -21,14 +21,14 @@ jobs:
           Get-ChildItem -Recurse -Force
 
       - name: Install Dashcam
-        uses: thebrowsercompany/action-dashcam@main
+        uses: testdriverai/action-dashcam@main
     
       - name: Start Dashcam
-        uses: thebrowsercompany/action-dashcam/start@main
+        uses: testdriverai/action-dashcam/start@main
         with:
           api-key: "1234567890"
     
       - name: Stop Dashcam
-        uses: thebrowsercompany/action-dashcam/stop@main
+        uses: testdriverai/action-dashcam/stop@main
         with:
           project-id: "507f1f77bcf86cd799439011"
