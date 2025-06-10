@@ -23,29 +23,38 @@ runs:
     - name: Install Dashcam GUI (Windows)
       if: ${{ runner.os == 'Windows' }}
       shell: pwsh
+      env:
+        DASHCAM_VERSION: ${{ inputs.version }}
       run: |
         $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;$env:PATH"
         Write-Host "Installing Dashcam GUI on ${{ runner.os }}"
-        Install-DashcamGUI.ps1 -Version ${{ inputs.version }}
+        Install-DashcamGUI.ps1 -Version $env:DASHCAM_VERSION
 
     - name: Install Node.js for Dashcam CLI (Windows)
       if: ${{ runner.os == 'Windows' }}
       shell: pwsh
+      env:
+        NODE_VERSION: ${{ inputs.node-version }}
+        NODE_DIRECTORY: ${{ inputs.node-directory }}
+        NODE_PREFIX: ${{ inputs.node-prefix }}
       run: |
         Write-Host "Installing Node.js for Dashcam CLI on ${{ runner.os }}"
 
         $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;$env:PATH"
-        Install-NodeJS.ps1 -Version ${{ inputs.node-version }} -Directory ${{ inputs.node-directory }} -Prefix ${{ inputs.node-prefix }}
+        Install-NodeJS.ps1 -Version $env:NODE_VERSION -Directory $env:NODE_DIRECTORY -Prefix $env:NODE_PREFIX
 
     - name: Install Dashcam CLI (Windows)
       if: ${{ runner.os == 'Windows' }}
       shell: pwsh
+      env:
+        NODE_DIRECTORY: ${{ inputs.node-directory }}
+        NODE_PREFIX: ${{ inputs.node-prefix }}
       run: |
         Write-Host "Installing Dashcam CLI on ${{ runner.os }}"
 
-        $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;${{ inputs.node-directory }};${{ inputs.node-prefix }};$env:PATH"
+        $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;$env:NODE_DIRECTORY;$env:NODE_PREFIX;$env:PATH"
         Install-DashcamCLI.ps1
-        Add-Content -Path $env:GITHUB_ENV -Encoding utf8 -Value "DASHCAM_NODE_DIR=${{ inputs.node-directory }}"
+        Add-Content -Path $env:GITHUB_ENV -Encoding utf8 -Value "DASHCAM_NODE_DIR=$env:NODE_DIRECTORY"
 
     - name: Install Dashcam GUI (macOS)
       if: ${{ runner.os == 'macOS' }}

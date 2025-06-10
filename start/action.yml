@@ -18,6 +18,10 @@ runs:
   steps:
     - name: Start Recording
       shell: pwsh
+      env:
+        API_KEY: ${{ inputs.api-key }}
+        LOG_FILE_PATHS: ${{ inputs.log-file-paths }}
+        CONNECTION_TIMEOUT: ${{ inputs.connection-timeout }}
       run: |
         $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;$env:PATH"
         Write-Host "Starting recording with Dashcam API key: ${{ inputs.api-key }}"
@@ -28,7 +32,7 @@ runs:
         Write-Host "PWD: $env:PWD"
         Get-ChildItem -Path $env:GITHUB_ACTION_PATH\src\windows
         Get-Command Dashcam-Start.ps1
-        Dashcam-Start.ps1 -ApiKey "${{ inputs.api-key }}" -LogFilePaths "${{ inputs.log-file-paths }}" -Timeout "${{ inputs.connection-timeout }}"
+        Dashcam-Start.ps1 -ApiKey $env:API_KEY -LogFilePaths $env:LOG_FILE_PATHS -Timeout $env:CONNECTION_TIMEOUT
 
 branding:
   icon: "video"
