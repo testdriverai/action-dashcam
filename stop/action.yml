@@ -11,8 +11,9 @@ runs:
   steps:
     - name: Stop Recording
       shell: pwsh
+      env:
+        PROJECT_ID: ${{ inputs.project-id }}
       run: |
         # Environment variable set by the dashcam-install action
         $env:PATH = "$env:DASHCAM_NODE_DIR;$env:DASHCAM_NODE_DIR\npm-installs;$env:PATH"
-        dashcam create --project ${{ inputs.project-id }} -t "${{ github.workflow }} ${{ github.run_number }}-${{ github.run_attempt }} - ${{ runner.name }}" -p --md >> $env:GITHUB_STEP_SUMMARY
-
+        dashcam create --project $env:PROJECT_ID -t "${{ github.workflow }} ${{ github.run_number }}-${{ github.run_attempt }} - ${{ runner.name }}" -p --md >> $env:GITHUB_STEP_SUMMARY
