@@ -13,22 +13,18 @@ jobs:
   validate:
     runs-on: windows-latest
     steps:
-      - name: Log Environment
-        shell: pwsh
-        run: |
-          Write-Host "Current path: $(Get-Location)"
-          Write-Host "Current path: $(Get-Location -PSProvider FileSystem)"
-          Get-ChildItem -Recurse -Force
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
 
       - name: Install Dashcam
-        uses: thebrowsercompany/action-dashcam@main
+        uses: ./.
     
       - name: Start Dashcam
-        uses: thebrowsercompany/action-dashcam/start@main
+        uses: ./start
         with:
           api-key: "1234567890"
-    
+
       - name: Stop Dashcam
-        uses: thebrowsercompany/action-dashcam/stop@main
+        uses: ./stop
         with:
           project-id: "507f1f77bcf86cd799439011"
