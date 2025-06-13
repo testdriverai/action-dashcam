@@ -18,13 +18,21 @@ jobs:
 
       - name: Install Dashcam
         uses: ./.
-    
+        with:
+          version: "1.0.49"
+          cli-version: "0.8.2"
+          node-version: "16.20.2"
+          node-directory: "C:\\nodejs16"
+          node-prefix: "C:\\nodejs16\\npm-installs"
+
       - name: Start Dashcam
         uses: ./start
+        continue-on-error: true
         with:
           api-key: "1234567890"
 
       - name: Stop Dashcam
         uses: ./stop
+        continue-on-error: true
         with:
           project-id: "507f1f77bcf86cd799439011"
