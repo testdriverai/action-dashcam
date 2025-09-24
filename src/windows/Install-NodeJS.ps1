@@ -42,10 +42,10 @@ Write-Host "Installing Node.js $Version..."
 # For the moment, use 16 as that matches the major version of $Version, but
 # eventually make this include the value of $Version in some way
 $env:PATH = "$Directory;$env:PATH"
-& npm config set prefix $Directory
+cmd /c npm config set prefix $Directory
 
 Write-Host "NPM configuration, local"
-& npm config list
+cmd /c npm config list
 
 Write-Host "NPM configuration, global"
-& npm config list -g
+cmd /c npm config list -g
