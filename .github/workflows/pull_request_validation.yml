@@ -20,10 +20,10 @@ jobs:
         uses: ./.
         with:
           version: "1.0.49"
-          cli-version: "0.8.2"
-          node-version: "16.20.2"
-          node-directory: "C:\\nodejs16"
-          node-prefix: "C:\\nodejs16\\npm-installs"
+          cli-version: "0.8.3"
+          node-version: "22.19.0"
+          node-directory: "C:\\nodejs22"
+          node-prefix: "C:\\nodejs22\\npm-installs"
 
       - name: Start Dashcam
         uses: ./start
