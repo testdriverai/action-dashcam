@@ -16,7 +16,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Start Recording
+    - name: Start Recording (Windows)
+      if: ${{ runner.os == 'Windows' }}
       shell: pwsh
       env:
         API_KEY: ${{ inputs.api-key }}
