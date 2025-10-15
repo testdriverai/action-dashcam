@@ -36,3 +36,18 @@ jobs:
         continue-on-error: true
         with:
           project-id: "507f1f77bcf86cd799439011"
+  validate_macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+
+      - name: Install Dashcam - MacOS
+        uses: ./.
+        with:
+          version: "1.0.49"
+          cli-version: "0.8.3"
+          node-version: "22.19.0"
+          node-directory: "${{ runner.temp }}/nodejs22"
+          node-prefix: "${{ runner.temp }}/nodejs22/npm-installs"
+  

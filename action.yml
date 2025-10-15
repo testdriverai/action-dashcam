@@ -65,24 +65,25 @@ runs:
       shell: bash
       run: |
         echo "Installing Dashcam GUI on ${{ runner.os }}"
-        echo "Not supported yet"
-        exit 1
+        bash "$GITHUB_ACTION_PATH/src/mac/Install-DashcamGUI.sh" --version "${{ inputs.version }}"
+        echo "Dashcam GUI installed"
 
     - name: Install Node.js for Dashcam CLI (macOS)
       if: ${{ runner.os == 'macOS' }}
       shell: bash
       run: |
         echo "Installing Node.js for Dashcam CLI on ${{ runner.os }}"
-        echo "Not supported yet"
-        exit 1
+        bash "$GITHUB_ACTION_PATH/src/mac/Install-Node.sh" --version "${{ inputs.node-version }}" --directory "${{ inputs.node-directory }}" --prefix "${{ inputs.node-prefix }}"
+        echo "Node.js installed to ${{ inputs.node-directory }}"
 
     - name: Install Dashcam CLI (macOS)
       if: ${{ runner.os == 'macOS' }}
       shell: bash
       run: |
         echo "Installing Dashcam CLI on ${{ runner.os }}"
-        echo "Not supported yet"
-        exit 1
+        bash "$GITHUB_ACTION_PATH/src/mac/Install-DashcamCLI.sh" --version "${{ inputs.cli-version }}"
+        echo "Dashcam CLI installed"
+        echo "DASHCAM_NODE_DIR=${{ inputs.node-directory }}" >> $GITHUB_ENV
 
     - name: Install Dashcam GUI (Linux)
       if: ${{ runner.os == 'Linux' }}

@@ -9,7 +9,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Stop Recording
+    - name: Stop Recording (Windows)
+      if: ${{ runner.os == 'Windows' }}
       shell: pwsh
       env:
         PROJECT_ID: ${{ inputs.project-id }}
