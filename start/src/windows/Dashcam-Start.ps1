@@ -7,23 +7,9 @@ param (
   [string]$LogFilePaths
 )
 
-
 Write-Host "::group::Starting Dashcam recording."
 # Environment variable set by the dashcam-install action
 $env:PATH = "$env:DASHCAM_NODE_DIR;$env:DASHCAM_NODE_DIR\npm-installs;$env:PATH"
-
-# The output of Dashcam after a successful auth is:
-# Connected as: google-oauth2|<token>!
-$authenticationOutput = dashcam auth "$ApiKey"
-Write-Host $authenticationOutput
-# The output of Dashcam after a successful auth is:
-# Connected as: google-oauth2|<token>!
-if ($authenticationOutput -like "*Connected as*") {
-  Write-Host "Dashcam authenticated."
-} else {
-  Write-Host "Failed to authenticate with Dashcam."
-  exit 1
-}
 
 # Split on both \r\n and just \n
 $lines = "$LogFilePaths" -split "`r?`n"
