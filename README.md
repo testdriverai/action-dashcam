@@ -12,7 +12,7 @@ First step must be to install the Dashcam CLI/GUI on the runner. The GUI is requ
     continue-on-error: true # Optional
     uses: testdriverai/action-dashcam@<VERSION_TAG>
     with:
-        version: "1.0.49" # See releases here: https://github.com/replayableio/replayable/releases
+        version: "1.4.13-beta.3" # See releases here: https://github.com/replayableio/replayable/releases
 ```
 
 Right before the step that you want to record you need to Start the Dashcam.

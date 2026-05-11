@@ -19,7 +19,7 @@ jobs:
       - name: Install Dashcam
         uses: ./.
         with:
-          version: "1.0.49"
+          version: "1.4.13-beta.3"
           cli-version: "0.8.3"
           node-version: "22.19.0"
           node-directory: "C:\\nodejs22"
@@ -45,7 +45,7 @@ jobs:
       - name: Install Dashcam - MacOS
         uses: ./.
         with:
-          version: "1.0.49"
+          version: "1.4.13-beta.3"
           cli-version: "0.8.3"
           node-version: "22.19.0"
           node-directory: "${{ runner.temp }}/nodejs22"
