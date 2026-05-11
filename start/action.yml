@@ -9,9 +9,6 @@ inputs:
   log-file-paths:
     description: "The paths to the log files to include in the recording, as a multiline string."
     required: false
-  connection-timeout:
-    description: "The timeout in seconds for the Dashcam GUI to be available from the CLI."
-    required: true
 
 runs:
   using: "composite"
@@ -22,18 +19,16 @@ runs:
       env:
         API_KEY: ${{ inputs.api-key }}
         LOG_FILE_PATHS: ${{ inputs.log-file-paths }}
-        CONNECTION_TIMEOUT: ${{ inputs.connection-timeout }}
       run: |
         $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;$env:PATH"
         Write-Host "Starting recording with Dashcam API key: ${{ inputs.api-key }}"
         Write-Host "Log file paths: ${{ inputs.log-file-paths }}"
-        Write-Host "Dashcam connection timeout: ${{ inputs.connection-timeout }}"
         Write-Host "PATH: $env:PATH"
         Write-Host "GITHUB_ACTION_PATH: $env:GITHUB_ACTION_PATH"
         Write-Host "PWD: $env:PWD"
         Get-ChildItem -Path $env:GITHUB_ACTION_PATH\src\windows
         Get-Command Dashcam-Start.ps1
-        Dashcam-Start.ps1 -ApiKey $env:API_KEY -LogFilePaths $env:LOG_FILE_PATHS -Timeout $env:CONNECTION_TIMEOUT
+        Dashcam-Start.ps1 -ApiKey $env:API_KEY -LogFilePaths $env:LOG_FILE_PATHS
 
 branding:
   icon: "video"

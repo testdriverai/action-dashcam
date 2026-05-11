@@ -3,9 +3,6 @@ description: "Install Dashcam onto the runner. Must be done before the start act
 author: "TheBrowserCompany"
 
 inputs:
-  version:
-    description: "The version of Dashcam to install. See releases here: https://github.com/replayableio/replayable/releases"
-    required: true
   cli-version:
     description: "The version of Dashcam cli to install. see: https://www.npmjs.com/package/dashcam?activeTab=versions"
     required: false
@@ -23,17 +20,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # The Dashcam CLI talks to the running Dashcam GUI, so we need both
-    - name: Install Dashcam GUI (Windows)
-      if: ${{ runner.os == 'Windows' }}
-      shell: pwsh
-      env:
-        DASHCAM_VERSION: ${{ inputs.version }}
-      run: |
-        $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;$env:PATH"
-        Write-Host "Installing Dashcam GUI on ${{ runner.os }}"
-        Install-DashcamGUI.ps1 -Version $env:DASHCAM_VERSION
-
     - name: Install Node.js for Dashcam CLI (Windows)
       if: ${{ runner.os == 'Windows' }}
       shell: pwsh
@@ -60,14 +46,6 @@ runs:
         Install-DashcamCLI.ps1 -Version ${{ inputs.cli-version }}
         Add-Content -Path $env:GITHUB_ENV -Encoding utf8 -Value "DASHCAM_NODE_DIR=$env:NODE_DIRECTORY"
 
-    - name: Install Dashcam GUI (macOS)
-      if: ${{ runner.os == 'macOS' }}
-      shell: bash
-      run: |
-        echo "Installing Dashcam GUI on ${{ runner.os }}"
-        bash "$GITHUB_ACTION_PATH/src/mac/Install-DashcamGUI.sh" --version "${{ inputs.version }}"
-        echo "Dashcam GUI installed"
-
     - name: Install Node.js for Dashcam CLI (macOS)
       if: ${{ runner.os == 'macOS' }}
       shell: bash
@@ -84,14 +62,6 @@ runs:
         bash "$GITHUB_ACTION_PATH/src/mac/Install-DashcamCLI.sh" --version "${{ inputs.cli-version }}"
         echo "Dashcam CLI installed"
         echo "DASHCAM_NODE_DIR=${{ inputs.node-directory }}" >> $GITHUB_ENV
-
-    - name: Install Dashcam GUI (Linux)
-      if: ${{ runner.os == 'Linux' }}
-      shell: bash
-      run: |
-        echo "Installing Dashcam GUI on ${{ runner.os }}"
-        echo "Not supported yet"
-        exit 1
 
     - name: Install Node.js for Dashcam CLI (Linux)
       if: ${{ runner.os == 'Linux' }}

@@ -4,34 +4,9 @@ param (
   [string]$ApiKey,
 
   # paths to log files to track, newline separated
-  [string]$LogFilePaths,
-
-  # required parameter for the timeout
-  [Parameter(Mandatory = $true, HelpMessage = "The timeout in seconds.")]
-  [int]$Timeout
+  [string]$LogFilePaths
 )
 
-
-Write-Host "::group::Checking Dashcam availability."
-$AppName = "Dashcam"
-$Elapsed = 0
-
-# Loop until the application is found or timeout is reached
-while (-not (Get-Process -Name $AppName -ErrorAction SilentlyContinue) -and $Elapsed -lt $Timeout) {
-  Write-Host "Waiting for $AppName to start..."
-  Start-Sleep -Seconds 1
-  $Elapsed++
-}
-
-if ($Elapsed -ge $Timeout) {
-  Write-Host "Timeout reached. $AppName was not available from shell."
-  exit 1
-} else {
-  Write-Host "$AppName has started."
-}
-Write-Host "::endgroup::"
-
-Write-Host "Dashcam GUI started and ready to begin recording."
 
 Write-Host "::group::Starting Dashcam recording."
 # Environment variable set by the dashcam-install action
