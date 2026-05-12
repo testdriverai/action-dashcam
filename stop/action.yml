@@ -12,4 +12,4 @@ runs:
       run: |
         # Environment variable set by the dashcam-install action
         $env:PATH = "$env:DASHCAM_NODE_DIR;$env:DASHCAM_NODE_DIR\npm-installs;$env:PATH"
-        dashcam stop >> $env:GITHUB_STEP_SUMMARY
+        dashcam stop
