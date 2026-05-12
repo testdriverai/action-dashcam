@@ -12,7 +12,7 @@ First step must be to install the Dashcam CLI/GUI on the runner. The GUI is requ
     continue-on-error: true # Optional
     uses: testdriverai/action-dashcam@<VERSION_TAG>
     with:
-        version: "1.0.49" # See releases here: https://github.com/replayableio/replayable/releases
+        version: "1.4.13-beta.3" # See releases here: https://github.com/replayableio/replayable/releases
 ```
 
 Right before the step that you want to record you need to Start the Dashcam.
@@ -24,6 +24,8 @@ Right before the step that you want to record you need to Start the Dashcam.
     uses: testdriverai/action-dashcam/start@<VERSION_TAG>
     with:
       api-key: ${{ secrets.DASHCAM_API_KEY }}
+      project-id: "507f1f77bcf86cd799439011" # The project-id value is the 'slug' component of the project URL on the Dashcam website.
+      title: "${{ github.workflow }} ${{ github.run_number }}-${{ github.run_attempt }} - ${{ runner.name }}"
 ```
 
 To stop the recording and upload the results use:
@@ -32,6 +34,5 @@ To stop the recording and upload the results use:
     if: ${{ always() && steps.start_dashcam.outcome == 'success' }}
     continue-on-error: true
     uses: testdriverai/action-dashcam/stop@dev
-    with:
-        project-id: "507f1f77bcf86cd799439011" # The project-id value is the 'slug' component of the project URL on the Dashcam website.
 ```
+

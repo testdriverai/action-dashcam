@@ -20,7 +20,7 @@ jobs:
         uses: ./.
         with:
           version: "1.0.49"
-          cli-version: "0.8.3"
+          cli-version: "1.4.13-beta.3"
           node-version: "22.19.0"
           node-directory: "C:\\nodejs22"
           node-prefix: "C:\\nodejs22\\npm-installs"
@@ -29,13 +29,13 @@ jobs:
         uses: ./start
         continue-on-error: true
         with:
-          api-key: "1234567890"
+          api-key: ${{ secrets.TD_API_KEY }}
+          project-id: "6a035b8fde5d2cd7ddbdac0c"
+          title: "${{ github.workflow }} ${{ github.run_number }}-${{ github.run_attempt }} - ${{ runner.name }}"
 
       - name: Stop Dashcam
         uses: ./stop
         continue-on-error: true
-        with:
-          project-id: "507f1f77bcf86cd799439011"
   validate_macos:
     runs-on: macos-latest
     steps:
@@ -46,7 +46,7 @@ jobs:
         uses: ./.
         with:
           version: "1.0.49"
-          cli-version: "0.8.3"
+          cli-version: "1.4.13-beta.3"
           node-version: "22.19.0"
           node-directory: "${{ runner.temp }}/nodejs22"
           node-prefix: "${{ runner.temp }}/nodejs22/npm-installs"
