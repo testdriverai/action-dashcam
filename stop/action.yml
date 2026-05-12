@@ -14,6 +14,7 @@ runs:
       shell: pwsh
       env:
         PROJECT_ID: ${{ inputs.project-id }}
+        TD_API_ROOT: https://api.testdriver.ai 
       run: |
         # Environment variable set by the dashcam-install action
         $env:PATH = "$env:DASHCAM_NODE_DIR;$env:DASHCAM_NODE_DIR\npm-installs;$env:PATH"

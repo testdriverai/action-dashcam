@@ -23,6 +23,7 @@ runs:
         API_KEY: ${{ inputs.api-key }}
         LOG_FILE_PATHS: ${{ inputs.log-file-paths }}
         CONNECTION_TIMEOUT: ${{ inputs.connection-timeout }}
+        TD_API_ROOT: https://api.testdriver.ai 
       run: |
         $env:PATH = "$env:GITHUB_ACTION_PATH\src\windows;$env:PATH"
         Write-Host "Starting recording with Dashcam API key: ${{ inputs.api-key }}"
