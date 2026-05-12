@@ -30,7 +30,7 @@ jobs:
         continue-on-error: true
         with:
           api-key: ${{ secrets.TD_API_KEY }}
-          project-id: "507f1f77bcf86cd799439011"
+          project-id: "6a035b8fde5d2cd7ddbdac0c"
           title: "${{ github.workflow }} ${{ github.run_number }}-${{ github.run_attempt }} - ${{ runner.name }}"
 
       - name: Stop Dashcam
