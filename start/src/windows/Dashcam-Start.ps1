@@ -3,6 +3,12 @@ param (
   [Parameter(Mandatory = $true)]
   [string]$ApiKey,
 
+  # optional project slug to associate with this recording
+  [string]$ProjectId,
+
+  # optional recording title
+  [string]$Title,
+
   # paths to log files to track, newline separated
   [string]$LogFilePaths
 )
@@ -25,6 +31,16 @@ for ($i = 0; $i -lt $lines.Length; $i++) {
   dashcam track --type application --name "log-file-$i" --pattern "$currentLine"
 }
 
-dashcam start
+$startArgs = @("start")
+
+if ($ProjectId -and $ProjectId.Trim() -ne "") {
+  $startArgs += @("--project", $ProjectId)
+}
+
+if ($Title -and $Title.Trim() -ne "") {
+  $startArgs += @("-t", $Title)
+}
+
+dashcam @startArgs
 Write-Host "Dashcam recording has started."
 Write-Host "::endgroup::"

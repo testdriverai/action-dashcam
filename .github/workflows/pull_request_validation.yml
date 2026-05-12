@@ -30,12 +30,12 @@ jobs:
         continue-on-error: true
         with:
           api-key: ${{ secrets.TD_API_KEY }}
+          project-id: "507f1f77bcf86cd799439011"
+          title: "${{ github.workflow }} ${{ github.run_number }}-${{ github.run_attempt }} - ${{ runner.name }}"
 
       - name: Stop Dashcam
         uses: ./stop
         continue-on-error: true
-        with:
-          project-id: "507f1f77bcf86cd799439011"
   validate_macos:
     runs-on: macos-latest
     steps:

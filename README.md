@@ -24,6 +24,8 @@ Right before the step that you want to record you need to Start the Dashcam.
     uses: testdriverai/action-dashcam/start@<VERSION_TAG>
     with:
       api-key: ${{ secrets.DASHCAM_API_KEY }}
+      project-id: "507f1f77bcf86cd799439011" # The project-id value is the 'slug' component of the project URL on the Dashcam website.
+      title: "${{ github.workflow }} ${{ github.run_number }}-${{ github.run_attempt }} - ${{ runner.name }}"
 ```
 
 To stop the recording and upload the results use:
@@ -32,7 +34,5 @@ To stop the recording and upload the results use:
     if: ${{ always() && steps.start_dashcam.outcome == 'success' }}
     continue-on-error: true
     uses: testdriverai/action-dashcam/stop@dev
-    with:
-        project-id: "507f1f77bcf86cd799439011" # The project-id value is the 'slug' component of the project URL on the Dashcam website.
 ```
 
