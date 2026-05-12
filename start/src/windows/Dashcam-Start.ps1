@@ -39,7 +39,7 @@ $env:PATH = "$env:DASHCAM_NODE_DIR;$env:DASHCAM_NODE_DIR\npm-installs;$env:PATH"
 
 # The output of Dashcam after a successful auth is:
 # Connected as: google-oauth2|<token>!
-$authenticationOutput = dashcam auth "$ApiKey"
+$authenticationOutput = TD_API_ROOT=https://api.testdriver.ai dashcam auth "$ApiKey"
 Write-Host $authenticationOutput
 # The output of Dashcam after a successful auth is:
 # Connected as: google-oauth2|<token>!
