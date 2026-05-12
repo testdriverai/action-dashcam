@@ -8,7 +8,7 @@ runs:
       if: ${{ runner.os == 'Windows' }}
       shell: pwsh
       env:
-        TD_API_ROOT: https://api.testdriver.ai 
+        TD_API_ROOT: https://api-canary.testdriver.ai 
       run: |
         # Environment variable set by the dashcam-install action
         $env:PATH = "$env:DASHCAM_NODE_DIR;$env:DASHCAM_NODE_DIR\npm-installs;$env:PATH"
