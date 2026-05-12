@@ -29,7 +29,7 @@ jobs:
         uses: ./start
         continue-on-error: true
         with:
-          api-key: "1234567890"
+          api-key: ${{ secrets.TD_API_KEY }}
 
       - name: Stop Dashcam
         uses: ./stop
