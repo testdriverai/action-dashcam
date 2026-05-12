@@ -31,7 +31,7 @@ for ($i = 0; $i -lt $lines.Length; $i++) {
   dashcam track --type application --name "log-file-$i" --pattern "$currentLine"
 }
 
-$startArgs = @("start")
+$startArgs = @("record")
 
 if ($ProjectId -and $ProjectId.Trim() -ne "") {
   $startArgs += @("--project", $ProjectId)
