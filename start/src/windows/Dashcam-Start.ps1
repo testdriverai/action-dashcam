@@ -10,7 +10,8 @@ param (
 Write-Host "::group::Starting Dashcam recording."
 # Environment variable set by the dashcam-install action
 $env:PATH = "$env:DASHCAM_NODE_DIR;$env:DASHCAM_NODE_DIR\npm-installs;$env:PATH"
-
+$authenticationOutput = dashcam auth "$ApiKey"
+Write-Host $authenticationOutput
 # Split on both \r\n and just \n
 $lines = "$LogFilePaths" -split "`r?`n"
 # Iterate over each line skipping any that are empty
